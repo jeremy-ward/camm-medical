@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 
 //===Set up the client schema
 var clientSchema = new Schema({
+  active: Boolean,
   company: String,
   type: String,
   website: String,
