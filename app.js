@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('.app/routes/index');
 var users = require('.app/routes/users');
+var client_api = require(".app/api/client-api.js");
 
 var app = express();
 
@@ -22,8 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// == include routes files ==
 app.use('/', routes);
 app.use('/users', users);
+// === include api files ====
+app.use('/api/client', client_api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
