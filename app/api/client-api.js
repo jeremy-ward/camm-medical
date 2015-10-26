@@ -29,6 +29,16 @@ router.post("/new", function(req, res){
   });
 });
 
+//=== updates a client ================
+router.put("/update/:client_id", function(req, res){
+  Client.findOneByIdAndUpdate(req.params.client_id
+    , req.body.update
+    , function(err, client){
+      if(err) res.send(err);
+      res.send(client);
+    });
+});
+
 //=== remove a client =================
 router.delete("/delete/:client_id", function(req, res){
   Client.remove({
