@@ -6,26 +6,21 @@ var express = require('express');
 var router=express.Router();
 var Client = require('../models/client-model.js');
 
-//=== function to find all clients
-function allClients(){
-  Client.find(function(err, clients){
-    if(err) return err;
-    return clients;
-  });
-}
-
 //=== set up api routes =========================
 
-//=== get a clients ===================
+//=== get all clients ===================
 router.get('/', function(req, res){
-  res.send(allClients());
+  Client.find(function(err, clients){
+    if(err) res.send(err);
+    res.send(clients);
+  });
 });
 
 //=== add a new client ================
 router.post("/new", function(req, res){
   Client.create(req.body.client, function(err, client){
     if(err) res.send(err);
-    res.send(allClients());
+    res.send(client);
   });
 });
 
@@ -45,7 +40,7 @@ router.delete("/delete/:client_id", function(req, res){
     _id: req.params.client_id
     }, function(err, client){
       if(err) res.send(err);
-      res.send(allClients());
+      res.send(200);
     });
 });
 
