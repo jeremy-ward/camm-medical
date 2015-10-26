@@ -29,14 +29,17 @@ router.get('/find/:client_id', function(req, res){
 router.get("/search", function(req, res){
   var term = new RegExp(req.body.search, "i");
   Client.find({
-    $or: [
-      {company : term},
-      {website : term},
-      {address:{state : term}},
-      {address:{city : term}},
-      {mainPoc:{firstName: term}},
-      {mainPoc:{lastName: term}}
-      //add otherPocs search
+    $and: [
+      {active: true},
+      {$or: [
+        {company : term},
+        {website : term},
+        {address:{state : term}},
+        {address:{city : term}},
+        {mainPoc:{firstName: term}},
+        {mainPoc:{lastName: term}}
+        //add otherPocs search
+      ]}
     ]
   }, function(err, clients){
     if(err) res.send(err);
@@ -62,11 +65,11 @@ router.put("/update/:client_id", function(req, res){
     });
 });
 
-//=== remove a client =================
+//=== remove a client (set is as not active) 
 router.delete("/delete/:client_id", function(req, res){
-  Client.remove({
-    _id: req.params.client_id
-    }, function(err, client){
+  Client.findOneByIdAndUpdate(req.params.client_id
+    , {active: false}
+    , function(err, client){
       if(err) res.send(err);
       res.send(200);
     });
