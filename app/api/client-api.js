@@ -8,12 +8,21 @@ var Client = require('../models/client-model.js');
 
 //=== set up api routes =========================
 
-//=== get all clients ===================
-router.get('/', function(req, res){
+//=== gets all clients ===================
+router.get('/find', function(req, res){
   Client.find(function(err, clients){
     if(err) res.send(err);
     res.send(clients);
   });
+});
+
+//=== get one client by id ============
+router.get('/find/:client_id', function(req, res){
+  Client.findById(req.params.client_id
+    , function(err,client){
+      if(err) res.send(err);
+      res.send(client);
+    });
 });
 
 //=== add a new client ================
