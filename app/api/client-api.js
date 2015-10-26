@@ -29,6 +29,16 @@ router.post("/new", function(req, res){
   });
 });
 
+//=== remove a client =================
+router.delete("/delete/:client_id", function(req, res){
+  Client.remove({
+    _id: req.params.client_id
+    }, function(err, client){
+      if(err) res.send(err);
+      res.send(allClients());
+    });
+});
+
 
 //export the routes for use in main app
 module.exports=router;
