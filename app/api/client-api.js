@@ -10,7 +10,7 @@ var Client = require('../models/client-model.js');
 
 //=== gets all clients ===================
 router.get('/find', function(req, res){
-  Client.find(function(err, clients){
+  Client.find({active: true}, function(err, clients){
     if(err) res.send(err);
     res.send(clients);
   });
@@ -23,6 +23,25 @@ router.get('/find/:client_id', function(req, res){
       if(err) res.send(err);
       res.send(client);
     });
+});
+
+//=== search for client ===============
+router.get("/search", function(req, res){
+  var term = new RegExp(req.body.search, "i");
+  Client.find({
+    $or: [
+      {company : term},
+      {website : term},
+      {address:{state : term}},
+      {address:{city : term}},
+      {mainPoc:{firstName: term}},
+      {mainPoc:{lastName: term}}
+      //add otherPocs search
+    ]
+  }, function(err, clients){
+    if(err) res.send(err);
+    res.send(clients);
+  });
 });
 
 //=== add a new client ================
