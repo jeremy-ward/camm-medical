@@ -1,11 +1,24 @@
-//=== model for client data =============================
+//=== model for customer data =============================
 
 //===get the needed tools
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//===Set up the client schema
-var clientSchema = new Schema({
+//=== set up the contact schema
+var contactSchema = new Schema({
+  firstname: String,
+  lastname: String,
+  salutation: String,
+  phone: Number,
+  alt_phone: Number,
+  fax: Number,
+  email: String,
+  alt_email: String,
+  primary: Boolean
+});
+
+//===Set up the customer schema
+var customerSchema = new Schema({
   active: Boolean,
   company: String,
   type: String,
@@ -25,30 +38,34 @@ var clientSchema = new Schema({
     state: String,
     zip: Number
   },
-  dateAdded: Date,
+  dateAdded: {type: Date, default: Date.now},
   firstOrder: Date,
   lastOrder: Date,
-  mainPoc: {
-    firstname: String,
-    lastname: String,
-    salutation: String,
-    phone: Number,
-    alt_phone: Number,
-    fax: Number,
-    email: String,
-    alt_email: String
-  },
-  otherPocs:[{
-    firstname: String,
-    lastname: String,
-    salutation: String,
-    phone: Number,
-    alt_phone: Number,
-    fax: Number,
-    email: String,
-    alt_email: String
-  }]
+  contacts: [contactSchema]
 });
 
+//=== define custom methods for customer schema
+
+  //===search by term
+customerSchema.statics.findByTerm = function(term, cb){
+  return this.find({
+    $and: [
+      {active: true},
+      {$or: [
+        {company : term},
+        {website : term},
+        {address:{state : term}},
+        {address:{city : term}},
+        {mainPoc:{firstName: term}},
+        {mainPoc:{lastName: term}}
+        //add otherPocs search
+      ]}
+    ]}, cb);
+};
+  //===finds all active customers
+customerSchema.statics.findActive = function(cb){
+  return this.find({active: true}, cb);
+};
+
 //==export client model
-module.exports=mongoose.model("Client", clientSchema);
+module.exports=mongoose.model("Customer", customerSchema);
