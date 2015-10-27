@@ -5,9 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes        = require('.app/routes/index'),
-    users         = require('.app/routes/users'),
-    customer-api  = require(".app/api/client-api.js");
+var routes        = require('./server/routes/index'),
+    users         = require('./server/routes/users'),
+    customerAPI  = require("./server/api/customer-api.js");
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.use('/', routes);
 app.use('/users', users);
 // === include api files ====
-app.use('/api/customer', customer_api);
+app.use('/api/customer', customerAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
