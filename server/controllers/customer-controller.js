@@ -1,0 +1,1 @@
+var Customer = require('../models/customer-model.js');

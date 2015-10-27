@@ -2,9 +2,9 @@
 //=== "api/client..."
 
 //=== get required dependencies
-var express = require('express');
-var router=express.Router();
-var Client = require('../models/client-model.js');
+var express = require('express'),
+    Router  = express.Router();
+
 
 //=== set up api routes =========================
 
