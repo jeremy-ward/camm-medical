@@ -47,7 +47,8 @@ var customerSchema = new Schema({
 //=== define custom methods for customer schema
 
   //===search by term
-customerSchema.statics.findByTerm = function(term, cb){
+customerSchema.statics.findByTerm = function(searchTerm, cb){
+  var term = new RegExp(searchTerm, "i");
   return this.find({
     $and: [
       {active: true},
