@@ -24,6 +24,7 @@ var express            = require('express'),
     //=== add a new client ==
     router.post("/", customerController.addCustomer);
 
+
   //===PUT Routes======================
     //=== updates a client ==
     router.put("/:customer_id", customerController.updateCustomer);

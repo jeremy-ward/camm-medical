@@ -3,13 +3,30 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    methodOverride = require('method-override');
 
-var routes        = require('./server/routes/index'),
-    users         = require('./server/routes/users'),
-    customerAPI  = require("./server/api/customer-api.js");
+    routes       = require('./server/routes/index'),
+    users        = require('./server/routes/users'),
+    customerAPI  = require("./server/api/customer-api.js"),
 
-var app = express();
+    database     = require("./server/config/database"),
+
+    app          = express();
+
+//connect to the database
+mongoose.connect(database.url);
+// CONNECTION EVENTS
+// When successfully connected
+mongoose.connection.on('connected', function () {  
+  console.log('Mongoose default connection open to ' + database.url);
+}); 
+
+// If the connection throws an error
+mongoose.connection.on('error',function (err) {  
+  console.log('Mongoose default connection error: ' + err);
+}); 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +37,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client')));
 
