@@ -2,7 +2,7 @@ var Customer = require('../models/customer-model.js');
 
 //===search by term provided
 module.exports.findByTerm = function(req, res){
-  Customer.findByTerm(req.body.searchTerm, 
+  Customer.findByTerm(req.query.searchTerm, 
     function(err, customers){
       if(err) res.send(err);
       res.send(customers);
@@ -12,10 +12,21 @@ module.exports.findByTerm = function(req, res){
 
 //===find all active customers
 module.exports.findActive = function(req, res){
-  Customer.findActive(function(err, customers){
-    if(err) res.send(err);
-    res.send(customers);
-  });
+  console.log(req.query.name);
+  if(!req.query.name){
+    Customer.findActive(function(err, customers){
+      if(err) res.send(err);
+      res.send(customers);
+    });
+  }
+  else{
+    console.log("got searched")
+    Customer.findByTerm(req.query.name, 
+    function(err, customers){
+      if(err) res.send(err);
+      res.send(customers);
+    });
+  }
 };
 
 //===find one customer by ID
@@ -38,8 +49,9 @@ module.exports.addCustomer = function(req,res){
 
 //===update a customer data
 module.exports.updateCustomer = function(req, res){
-  Customer.findOneByIdAndUpdate(req.params.customer_id
+  Customer.findByIdAndUpdate(req.params.customer_id
     , req.body.customerUpdate
+    , {'new' : true}
     , function(err, customer){
         if(err) res.send(err);
         res.send(customer);
@@ -48,8 +60,9 @@ module.exports.updateCustomer = function(req, res){
 
 //===simulates delete by making customer inactive
 module.exports.deleteCustomer = function(req, res){
-  Customer.findOneByIdAndUpdate(req.params.customer_id
+  Customer.findByIdAndUpdate(req.params.customer_id
     , {active:false}
+    , {'new':true}
     , function(err, customer){
         if(err) res.send(err);
         res.send(customer);
