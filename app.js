@@ -9,8 +9,7 @@ var bodyParser = require('body-parser'),
 
     routes       = require('./server/routes/index'),
     users        = require('./server/routes/users'),
-    customerAPI  = require("./server/api/customer-api.js"),
-
+    customerAPI  = require("./server/api/customer-api"),
     database     = require("./server/config/database"),
 
     app          = express();
