@@ -13,9 +13,6 @@ var express            = require('express'),
     //=== gets all customer =
     router.get('/', customerController.findActive);
 
-    //=== search for client =
-    router.get("/search", customerController.findByTerm);
-
     //=== get one client by id
     router.get('/:customer_id', customerController.findCustomer);
   
@@ -32,7 +29,7 @@ var express            = require('express'),
 
   //===DELETE Routes ==================
     //=== remove a customer (set is as not active) 
-    router.delete("/:client_id", customerController.deleteCustomer);
+    router.delete("/:customer_id", customerController.deleteCustomer);
 
 //export the routes for use in main app
 module.exports=router;
