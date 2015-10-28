@@ -26,3 +26,32 @@ module.exports.findCustomer = function(req, res){
       res.send(customer);
     });
 };
+
+//===add a new customer to database
+module.exports.addCustomer = function(req,res){
+  Customer.create(req.body.customer, 
+    function(err,customer){
+      if(err) res.send(err);
+      res.send(customer);
+    });
+};
+
+//===update a customer data
+module.exports.updateCustomer = function(req, res){
+  Customer.findOneByIdAndUpdate(req.params.customer_id
+    , req.body.customerUpdate
+    , function(err, customer){
+        if(err) res.send(err);
+        res.send(customer);
+    });
+};
+
+//===simulates delete by making customer inactive
+module.exports.deleteCustomer = function(req, res){
+  Customer.findOneByIdAndUpdate(req.params.customer_id
+    , {active:false}
+    , function(err, customer){
+        if(err) res.send(err);
+        res.send(customer);
+    });
+};

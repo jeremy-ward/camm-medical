@@ -3,7 +3,7 @@
 
 //=== get required dependencies
 var express            = require('express'),
-    Router             = express.Router(),
+    router             = express.Router(),
     customerController = require("../controllers/customer-controller");
 
 
@@ -11,44 +11,27 @@ var express            = require('express'),
 
   //GET Routes ========================
     //=== gets all customer =
-router.get('/', customerController.findActive);
+    router.get('/', customerController.findActive);
 
     //=== search for client =
-router.get("/search", customerController.findByTerm);
+    router.get("/search", customerController.findByTerm);
 
     //=== get one client by id
-router.get('/:customer_id', customerController.findCustomer);
+    router.get('/:customer_id', customerController.findCustomer);
   
-  
+
   //POST Routes =======================
     //=== add a new client ==
-router.post("/", function(req, res){
-  Client.create(req.body.client, function(err, client){
-    if(err) res.send(err);
-    res.send(client);
-  });
-});
+    router.post("/", customerController.addCustomer);
 
-//=== updates a client ================
-router.put("/:client_id", function(req, res){
-  Client.findOneByIdAndUpdate(req.params.client_id
-    , req.body.update
-    , function(err, client){
-      if(err) res.send(err);
-      res.send(client);
-    });
-});
+  //===PUT Routes======================
+    //=== updates a client ==
+    router.put("/:customer_id", customerController.updateCustomer);
 
-//=== remove a client (set is as not active) 
-router.delete("/delete/:client_id", function(req, res){
-  Client.findOneByIdAndUpdate(req.params.client_id
-    , {active: false}
-    , function(err, client){
-      if(err) res.send(err);
-      res.send(200);
-    });
-});
 
+  //===DELETE Routes ==================
+    //=== remove a customer (set is as not active) 
+    router.delete("/:client_id", customerController.deleteCustomer);
 
 //export the routes for use in main app
 module.exports=router;
