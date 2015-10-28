@@ -41,6 +41,7 @@ var customerSchema = new Schema({
   dateAdded: {type: Date, default: Date.now},
   firstOrder: Date,
   lastOrder: Date,
+  numOrders: Number,
   contacts: [contactSchema]
 });
 

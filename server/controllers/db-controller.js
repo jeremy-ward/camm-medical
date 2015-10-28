@@ -9,57 +9,57 @@ this.printDb = function(){
 //===find all active customers
 this.findActive = function(req, res){
   if(!req.query.name){
-    Models[dbName].findActive(function(err, customers){
+    Models[dbName].findActive(function(err, docs){
       if(err) res.send(err);
-      res.send(customers);
+      res.send(docs);
     });
   }
   else{
     Models[dbName].findByTerm(req.query.name, 
-    function(err, customers){
+    function(err, docs){
       if(err) res.send(err);
-      res.send(customers);
+      res.send(docs);
     });
   }
 };
 
 //===find one customer by ID
 this.findCustomer = function(req, res){
-  Models[dbName].findById(req.params.customer_id,
-    function(err, customer){
+  Models[dbName].findById(req.params._id,
+    function(err, doc){
       if(err) res.send(err);
-      res.send(customer);
+      res.send(doc);
     });
 };
 
 //===add a new customer to database
 this.addCustomer = function(req,res){
-  Models[dbName].create(req.body.customer, 
-    function(err,customer){
+  Models[dbName].create(req.body.addNew, 
+    function(err,doc){
       if(err) res.send(err);
-      res.send(customer);
+      res.send(doc);
     });
 };
 
 //===update a customer data
 this.updateCustomer = function(req, res){
-  Models[dbName].findByIdAndUpdate(req.params.customer_id
-    , req.body.customerUpdate
+  Models[dbName].findByIdAndUpdate(req.params._id
+    , req.body.updateData
     , {'new' : true}
-    , function(err, customer){
+    , function(err, doc){
         if(err) res.send(err);
-        res.send(customer);
+        res.send(doc);
     });
 };
 
 //===simulates delete by making customer inactive
 this.deleteCustomer = function(req, res){
-  Models[dbName].findByIdAndUpdate(req.params.customer_id
+  Models[dbName].findByIdAndUpdate(req.params._id
     , {active:false}
     , {'new':true}
-    , function(err, customer){
+    , function(err, doc){
         if(err) res.send(err);
-        res.send(customer);
+        res.send(doc);
     });
 };
 };

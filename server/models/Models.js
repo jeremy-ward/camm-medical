@@ -3,4 +3,6 @@
 //=== get the models
 var Customer = require('./customer-model.js');
 
-module.exports.customer=Customer;
+module.exports={
+  customer:Customer
+};
