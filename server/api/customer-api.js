@@ -14,7 +14,7 @@ var express     = require('express'),
     router.get('/', custCtrl.findActive);
 
     //=== get one client by id
-    router.get('/:customer_id', custCtrl.findCustomer);
+    router.get('/:_id', custCtrl.findCustomer);
   
 
   //POST Routes =======================
@@ -24,12 +24,12 @@ var express     = require('express'),
 
   //===PUT Routes======================
     //=== updates a client ==
-    router.put("/:customer_id", custCtrl.updateCustomer);
+    router.put("/:_id", custCtrl.updateCustomer);
 
 
   //===DELETE Routes ==================
     //=== remove a customer (set is as not active) 
-    router.delete("/:customer_id", custCtrl.deleteCustomer);
+    router.delete("/:_id", custCtrl.deleteCustomer);
 
 //export the routes for use in main app
 module.exports=router;
