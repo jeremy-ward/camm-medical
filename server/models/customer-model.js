@@ -1,8 +1,9 @@
 //=== model for customer data =============================
 
 //===get the needed tools
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose   = require('mongoose'),
+    Schema     = mongoose.Schema,
+    validators = require('./validators');
 
 //=== set up the contact schema
 var contactSchema = new Schema({
@@ -12,7 +13,7 @@ var contactSchema = new Schema({
   phone: Number,
   alt_phone: Number,
   fax: Number,
-  email: String,
+  email: {type: String, validate: {validator: validators.email, message: "invalid email"}},
   alt_email: String,
   primary: Boolean
 });
@@ -28,7 +29,7 @@ var customerSchema = new Schema({
     ste: String,
     city: String,
     state: String,
-    zip: Number
+    zip: {type: String, validate:{validator:validators.zip}}
   },
   mailingAddress:{
     address: String,
@@ -36,7 +37,7 @@ var customerSchema = new Schema({
     PO_box: Number,
     city: String,
     state: String,
-    zip: Number
+    zip: {type: String, validate:{validator:validators.zip}}
   },
   dateAdded: {type: Date, default: Date.now},
   firstOrder: Date,
