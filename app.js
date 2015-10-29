@@ -10,6 +10,8 @@ var bodyParser = require('body-parser'),
     routes       = require('./server/routes/index'),
     users        = require('./server/routes/users'),
     customerAPI  = require("./server/api/customer-api"),
+    supplierAPI  = require("./server/api/supplier-api"),
+
     database     = require("./server/config/database"),
 
     app          = express();
@@ -43,8 +45,10 @@ app.use(express.static(path.join(__dirname, 'client')));
 // == include routes files ==
 app.use('/', routes);
 app.use('/users', users);
+
 // === include api files ====
 app.use('/api/customer', customerAPI);
+app.use('/api/supplier', supplierAPI);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
