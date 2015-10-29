@@ -45,29 +45,8 @@ var supplierSchema = new Schema({
   contacts: [contactSchema]
 });
 
-//=== define custom methods for supplier schema
-
-  //===search by term
-supplierSchema.statics.findByTerm = function(searchTerm, cb){
-  var term = new RegExp(searchTerm, "i");
-  return this.find({
-    $and: [
-      {active: true},
-      {$or: [
-        {company : term},
-        {website : term},
-        {address:{state : term}},
-        {address:{city : term}},
-        {mainPoc:{firstName: term}},
-        {mainPoc:{lastName: term}}
-        //add otherPocs search
-      ]}
-    ]}, cb);
-};
-  //===finds all active suppliers
-supplierSchema.statics.findActive = function(cb){
-  return this.find({active: true}, cb);
-};
+//=== add custom methods for supplier schema
+  require('./model-methods.js')(supplierSchema);
 
 //==export client model
 module.exports=mongoose.model("Supplier", supplierSchema);
