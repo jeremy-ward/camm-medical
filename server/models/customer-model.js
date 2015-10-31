@@ -3,7 +3,7 @@
 //===get the needed tools
 var mongoose   = require('mongoose'),
     Schema     = mongoose.Schema,
-    validators = require('./validators');
+    validators = require('./validation/validators');
 
 //=== set up the contact schema
 var contactSchema = new Schema({
