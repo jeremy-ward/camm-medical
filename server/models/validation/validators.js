@@ -1,5 +1,8 @@
 //=== shared validation functions
 
+var customerTypes = require('./customerTypes'),
+    states        = require('./usStates');
+
 module.exports={
   email : function(email){
     return /[\w\-\.]+\@\w+(\.\w+)+/i.test(email);
@@ -9,5 +12,11 @@ module.exports={
   },
   phone : function(phone){
     return/^(\d{3}\-){2}\d{4}/.test(phone);
+  },
+  customerType : function(type){
+    return (customerTypes.indexOf(type)!=-1);
+  },
+  state: function(state){
+    return (states.hasOwnProperty(state));
   }
 };
