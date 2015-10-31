@@ -6,5 +6,8 @@ module.exports={
   },
   zip : function(zip){
     return /^(\d{5})(\-\d{4})?$/.test(zip);
+  },
+  phone : function(phone){
+    return/^(\d{3}\-){2}\d{4}/.test(phone);
   }
 };
