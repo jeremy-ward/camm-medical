@@ -21,12 +21,12 @@ mongoose.connect(database.url);
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', function () {  
-  console.log('Mongoose default connection open to ' + database.url);
+  console.log('Mongoose connected to ' + database.url);
 }); 
 
 // If the connection throws an error
 mongoose.connection.on('error',function (err) {  
-  console.log('Mongoose default connection error: ' + err);
+  console.log('Mongoose connection error: ' + err);
 }); 
 
 // view engine setup
@@ -40,7 +40,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'client')));
+
+// === set static routes for public files ==
+app.use('/img', express.static(path.join(__dirname, 'client/img')));
+app.use('/js', express.static(path.join(__dirname, 'client/js')));
+app.use('/css', express.static(path.join(__dirname, 'client/css')));
+app.use('/views', express.static(path.join(__dirname, 'client/views')))
 
 // == include routes files ==
 app.use('/', routes);
