@@ -47,6 +47,7 @@ app.use('/js', express.static(path.join(__dirname, 'client/js')));
 app.use('/css', express.static(path.join(__dirname, 'client/css')));
 app.use('/views', express.static(path.join(__dirname, 'client/views')))
 
+
 // == include routes files ==
 app.use('/', routes);
 app.use('/users', users);
