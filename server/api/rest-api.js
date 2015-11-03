@@ -2,34 +2,35 @@
 //=== "api/supplier..."
 
 //=== get required dependencies
+module.exports=function(db){
 var express     = require('express'),
     router      = express.Router(),
     Controller  = require("../controllers/db-controller"),
-    supCtrl = new Controller('supplier');
+    dbCtrl      = new Controller(db);
 
 //=== set up api routes =========================
 
   //GET Routes ========================
     //=== gets all supplier =
-    router.get('/', supCtrl.findActive);
+    router.get('/', dbCtrl.findActive);
 
     //=== get one client by id
-    router.get('/:_id', supCtrl.findCustomer);
+    router.get('/:_id', dbCtrl.findCustomer);
   
 
   //POST Routes =======================
     //=== add a new client ==
-    router.post("/", supCtrl.addCustomer);
+    router.post("/", dbCtrl.addCustomer);
 
 
   //===PUT Routes======================
     //=== updates a client ==
-    router.put("/:_id", supCtrl.updateCustomer);
+    router.put("/:_id", dbCtrl.updateCustomer);
 
 
   //===DELETE Routes ==================
     //=== remove a supplier (set is as not active) 
-    router.delete("/:_id", supCtrl.deleteCustomer);
+    router.delete("/:_id", dbCtrl.deleteCustomer);
 
-//export the routes for use in main app
-module.exports=router;
+    return router;
+}
