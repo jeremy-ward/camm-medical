@@ -54,6 +54,7 @@ app.use('/users', users);
 // === include api files ====
 app.use('/api/customer', restAPI('customer'));
 app.use('/api/supplier', restAPI('supplier'));
+app.use('/api/order', restAPI('order'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

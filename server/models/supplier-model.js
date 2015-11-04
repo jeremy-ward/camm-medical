@@ -48,7 +48,7 @@ var supplierSchema = new Schema({
 });
 
 //=== add custom methods for supplier schema
-  require('./model-methods.js')(supplierSchema);
+  require('./methods/model-methods.js')(supplierSchema);
 
 //==export client model
 module.exports=mongoose.model("Supplier", supplierSchema);

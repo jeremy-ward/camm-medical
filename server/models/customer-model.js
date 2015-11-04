@@ -47,7 +47,7 @@ var customerSchema = new Schema({
 });
 
 //=== add custom methods for customer schema
-  require('./model-methods.js')(customerSchema);
+  require('./methods/model-methods.js')(customerSchema);
 
 //==export client model
 module.exports=mongoose.model("Customer", customerSchema);
