@@ -9,7 +9,7 @@ var express = require('express'),
 
     routes       = require('./server/routes/index'),
     users        = require('./server/routes/users'),
-    restAPI  = require("./server/api/rest-api")
+    restAPI      = require("./server/api/rest-api")
 
     database     = require("./server/config/database"),
 
@@ -20,12 +20,12 @@ mongoose.connect(database.url);
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', function () {  
-  console.log('Mongoose connected to ' + database.url);
+  console.log('DB connected: ' + database.url);
 }); 
 
 // If the connection throws an error
 mongoose.connection.on('error',function (err) {  
-  console.log('Mongoose connection error: ' + err);
+  console.log('DB error: ' + err);
 }); 
 
 // view engine setup

@@ -54,12 +54,22 @@ this.updateCustomer = function(req, res){
 
 //===simulates delete by making customer inactive
 this.deleteCustomer = function(req, res){
-  Models[dbName].findByIdAndUpdate(req.params._id
-    , {active:false}
-    , {'new':true}
-    , function(err, doc){
+  if(!req.query.hard){
+    Models[dbName].findByIdAndUpdate(req.params._id
+      , {active:false}
+      , {'new':true}
+      , function(err, doc){
+          if(err) res.send(err);
+          res.send(doc);
+      });
+  }
+  else{
+    Models[dbName].findByIdAndRemove(req.params._id
+      , function(err, doc){
         if(err) res.send(err);
-        res.send(doc);
-    });
+        res.send({"_id": doc._id, "deleted": true});
+      }
+    );
+  }
 };
 };
