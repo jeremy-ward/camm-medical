@@ -6,7 +6,7 @@ this.printDb = function(){
   console.log(dbName);
 };
 
-//===find all active customers
+//===find all active 
 this.findActive = function(req, res){
   if(!req.query.name){
     Models[dbName].findActive(function(err, docs){
@@ -23,8 +23,8 @@ this.findActive = function(req, res){
   }
 };
 
-//===find one customer by ID
-this.findCustomer = function(req, res){
+//===find one by ID
+this.findOne = function(req, res){
   Models[dbName].findById(req.params._id,
     function(err, doc){
       if(err) res.send(err);
@@ -32,8 +32,8 @@ this.findCustomer = function(req, res){
     });
 };
 
-//===add a new customer to database
-this.addCustomer = function(req,res){
+//===add a new one to database
+this.addOne = function(req,res){
   Models[dbName].create(req.body.addNew, 
     function(err,doc){
       if(err) res.send(err);
@@ -41,8 +41,8 @@ this.addCustomer = function(req,res){
     });
 };
 
-//===update a customer data
-this.updateCustomer = function(req, res){
+//===update one's data
+this.updateOne= function(req, res){
   Models[dbName].findByIdAndUpdate(req.params._id
     , req.body.updateData
     , {'new' : true}
@@ -52,8 +52,8 @@ this.updateCustomer = function(req, res){
     });
 };
 
-//===simulates delete by making customer inactive
-this.deleteCustomer = function(req, res){
+//===Delete one by inactivating or hard delete
+this.deleteOne = function(req, res){
   if(!req.query.hard){
     Models[dbName].findByIdAndUpdate(req.params._id
       , {active:false}
