@@ -17,4 +17,4 @@ var productSchema = new Schema({
   require('./methods/model-methods.js')(productSchema);
 
 //==export client model
-module.exports=mongoose.model("Orders", productSchema);
+module.exports=mongoose.model("Product", productSchema);
