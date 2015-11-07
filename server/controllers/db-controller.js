@@ -1,5 +1,5 @@
-var Models = require('../models/Models.js'),
-    popOpt = require('../models/population/options');
+var Models = require('../database/Models.js'),
+    popOpt = require('../database/population/options');
 
 module.exports = function(dbName){
 
@@ -8,81 +8,82 @@ this.printDb = function(){
 };
 
 //===find all active 
-this.findActive = function(req, res){
-  if(!req.query.name){
+this.findActive = function(term, cb){
+  if(!term){
     Models[dbName].findActive(function(err, docs){
-      if(err) res.send(err);
+      if(err) return cb(err);
       if(popOpt[dbName]){
         Models[dbName].populate(docs, popOpt[dbName], function(err,docs){
-          if(err) res.send(err);
-          res.send(docs);
+          if(err) return cb(err);
+          return cb(docs);
         });
       }
       else{
-        res.send(docs);}
+        return cb(docs);}
     });
   }
   else{
-    Models[dbName].findByTerm(req.query.name, 
+    Models[dbName].findByTerm(term, 
     function(err, docs){
-      if(err) res.send(err);
-      res.send(docs);
+      if(err) return cb(err);
+      return cb(docs);
     });
   }
 };
 
 //===find one by ID
-this.findOne = function(req, res){
-  Models[dbName].findById(req.params._id,
+this.findOne = function(id, cb){
+  Models[dbName].findById(id,
     function(err, doc){
-      if(err) res.send(err);
+      if(err) return cb(err);
       if(popOpt[dbName]){
         Models[dbName].populate(doc, popOpt[dbName], function(err,doc){
-          if(err) res.send(err);
-          res.send(doc);
+          if(err) return cb(err);
+          return cb(doc);
         });
       }
       else{
-        res.send(doc);}
+        return cb(doc);}
     });
 };
 
 //===add a new one to database
-this.addOne = function(req,res){
-  Models[dbName].create(req.body.addNew, 
+this.addOne = function(data, cb){
+  Models[dbName].create(data, 
     function(err,doc){
-      if(err) res.send(err);
-      res.send(doc);
+      if(err){
+        return cb(err)};
+      return cb(doc);
     });
 };
 
 //===update one's data
-this.updateOne= function(req, res){
-  Models[dbName].findByIdAndUpdate(req.params._id
-    , req.body.updateData
+this.updateOne= function(id, data, cb){
+  Models[dbName].findByIdAndUpdate(id
+    , data
     , {'new' : true}
     , function(err, doc){
-        if(err) res.send(err);
-        res.send(doc);
+        if(err) return cb(err);
+        return cb(doc);
     });
 };
 
 //===Delete one by inactivating or hard delete
-this.deleteOne = function(req, res){
-  if(!req.query.hard){
-    Models[dbName].findByIdAndUpdate(req.params._id
+this.deleteOne = function(id, hard, cb){
+  if(!hard){
+    Models[dbName].findByIdAndUpdate(id
       , {active:false}
       , {'new':true}
       , function(err, doc){
-          if(err) res.send(err);
-          res.send(doc);
+          if(err) return cb(err);
+          return cb(doc);
       });
   }
   else{
-    Models[dbName].findByIdAndRemove(req.params._id
+    Models[dbName].findByIdAndRemove(id
       , function(err, doc){
-        if(err) res.send(err);
-        res.send({"_id": doc._id, "deleted": true});
+        if(err) return cb(err);
+        return cb({"_id": doc._id, "deleted": true});
       }
     );
   }
