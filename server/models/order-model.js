@@ -8,8 +8,7 @@ var mongoose   = require('mongoose'),
 //===set up schema for orders========
 var orderSchema = new Schema({
   active: {type: Boolean, default: true},
-  customer_id: String,
-  customer: {type: Schema.ObjectId, ref: 'Customer'},  //change to objectID,
+  customer: {type: Schema.ObjectId, ref: 'Customer'},
   orderDate: {type: Date, default: Date.now()},
   shipDate: Date,
   invoiceDate: [Date],
@@ -18,8 +17,8 @@ var orderSchema = new Schema({
   paidDate: Date,
   lineItems:[
     {
-      product: String,  //change to objectID
-      supplier: {type: Schema.ObjectId, ref: 'Supplier'},  //change to objectID
+      product: String,
+      supplier: {type: Schema.ObjectId, ref: 'Supplier'},
       units: Number,
       unitPrice: Number,
       totalPrice: Number
