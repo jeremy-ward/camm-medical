@@ -1,4 +1,5 @@
-var Models = require('../models/Models.js');
+var Models = require('../models/Models.js'),
+    popOpt = require('../models/population/options');
 
 module.exports = function(dbName){
 
@@ -11,7 +12,14 @@ this.findActive = function(req, res){
   if(!req.query.name){
     Models[dbName].findActive(function(err, docs){
       if(err) res.send(err);
-      res.send(docs);
+      if(popOpt[dbName]){
+        Models[dbName].populate(docs, popOpt[dbName], function(err,docs){
+          if(err) res.send(err);
+          res.send(docs);
+        });
+      }
+      else{
+        res.send(docs);}
     });
   }
   else{
@@ -28,7 +36,14 @@ this.findOne = function(req, res){
   Models[dbName].findById(req.params._id,
     function(err, doc){
       if(err) res.send(err);
-      res.send(doc);
+      if(popOpt[dbName]){
+        Models[dbName].populate(doc, popOpt[dbName], function(err,doc){
+          if(err) res.send(err);
+          res.send(doc);
+        });
+      }
+      else{
+        res.send(doc);}
     });
 };
 
