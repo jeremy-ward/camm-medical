@@ -1,5 +1,5 @@
 //=== api routes for interaction with supplier database =====
-//=== "api/supplier..."
+//=== "api/XXXX..."
 
 //=== get required dependencies
 module.exports=function(db){
@@ -11,26 +11,26 @@ var express     = require('express'),
 //=== set up api routes =========================
 
   //GET Routes ========================
-    //=== gets all supplier =
+    //=== gets all  =
     router.get('/', dbCtrl.findActive);
 
-    //=== get one client by id
-    router.get('/:_id', dbCtrl.findCustomer);
+    //=== get one  by id
+    router.get('/:_id', dbCtrl.findOne);
   
 
   //POST Routes =======================
-    //=== add a new client ==
-    router.post("/", dbCtrl.addCustomer);
+    //=== add a new one ==
+    router.post("/", dbCtrl.addOne);
 
 
   //===PUT Routes======================
-    //=== updates a client ==
-    router.put("/:_id", dbCtrl.updateCustomer);
+    //=== updates one ==
+    router.put("/:_id", dbCtrl.updateOne);
 
 
   //===DELETE Routes ==================
-    //=== remove a supplier (set is as not active) 
-    router.delete("/:_id", dbCtrl.deleteCustomer);
+    //=== remove a one (set is as not active, or hard deletes) 
+    router.delete("/:_id", dbCtrl.deleteOne);
 
     return router;
 }

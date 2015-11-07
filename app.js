@@ -9,7 +9,7 @@ var express = require('express'),
 
     routes       = require('./server/routes/index'),
     users        = require('./server/routes/users'),
-    restAPI      = require("./server/api/rest-api")
+    restAPI      = require("./server/api/rest-api"),
 
     database     = require("./server/config/database"),
 
@@ -54,7 +54,7 @@ app.use('/users', users);
 // === include api files ====
 app.use('/api/customer', restAPI('customer'));
 app.use('/api/supplier', restAPI('supplier'));
-app.use('/api/order', restAPI('order'));
+app.use('/api/order', restAPI('Order'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

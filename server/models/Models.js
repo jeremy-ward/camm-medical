@@ -8,5 +8,5 @@ var Customer = require('./customer-model.js'),
 module.exports={
   customer: Customer,
   supplier: Supplier,
-  order: Order
+  Order: Order
 };
