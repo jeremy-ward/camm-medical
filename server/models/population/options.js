@@ -1,7 +1,10 @@
 module.exports={
-  Order:[
+  Order : [
     {path: 'customer'},
-    {path: 'lineItems.supplier'}/*,
-    {path : 'lineItems.product'}*/
+    {path: 'lineItems.supplier'},
+    {path : 'lineItems.product'}
+  ],
+  Product : [
+    {path : "supplier"}
   ]
 };

@@ -55,6 +55,7 @@ app.use('/users', users);
 app.use('/api/customer', restAPI('customer'));
 app.use('/api/supplier', restAPI('supplier'));
 app.use('/api/order', restAPI('Order'));
+app.use('/api/product', restAPI('Product'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

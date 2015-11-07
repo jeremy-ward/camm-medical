@@ -17,7 +17,7 @@ var orderSchema = new Schema({
   paidDate: Date,
   lineItems:[
     {
-      product: String,
+      product: {type: Schema.ObjectId, ref : "Product"},
       supplier: {type: Schema.ObjectId, ref: 'Supplier'},
       units: Number,
       unitPrice: Number,
