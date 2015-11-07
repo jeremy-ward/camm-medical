@@ -5,7 +5,7 @@ var express = require('express'),
     cookieParser   = require('cookie-parser'),
     bodyParser     = require('body-parser'),
     mongoose       = require('mongoose'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
 
     routes       = require('./server/routes/index'),
     users        = require('./server/routes/users'),
@@ -44,7 +44,7 @@ app.use(cookieParser());
 app.use('/img', express.static(path.join(__dirname, 'client/img')));
 app.use('/js', express.static(path.join(__dirname, 'client/js')));
 app.use('/css', express.static(path.join(__dirname, 'client/css')));
-app.use('/views', express.static(path.join(__dirname, 'client/views')))
+app.use('/views', express.static(path.join(__dirname, 'client/views')));
 
 
 // == include routes files ==
