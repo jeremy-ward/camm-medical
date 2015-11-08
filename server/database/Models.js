@@ -9,6 +9,6 @@ var Customer = require('./models/customer-model.js'),
 module.exports={
   customer : Customer,
   supplier : Supplier,
-  Order    : Order,
-  Product  : Product
+  order    : Order,
+  product  : Product
 };
