@@ -1,5 +1,6 @@
-var Models = require('../database/Models.js'),
-    popOpt = require('../database/population/options');
+var Models     = require('../database/Models.js'),
+    popOpt     = require('../database/population/options'),
+    errHandler = require('./error-handler'); 
 
 module.exports = function(dbName){
   //===DEV only--prints db collection to console
@@ -10,10 +11,10 @@ module.exports = function(dbName){
   this.findActive = function(term, cb){
     if(!term){
       Models[dbName].findActive(function(err, docs){
-        if(err) return cb(err);
+        if(err) return cb(errHandler.database.error(err));
         if(popOpt[dbName]){
           Models[dbName].populate(docs, popOpt[dbName], function(err,docs){
-            if(err) return cb(err);
+            if(err) return cb(errHandler.database.error(err));
             return cb(docs);
           });
         }
@@ -24,7 +25,7 @@ module.exports = function(dbName){
     else{
       Models[dbName].findByTerm(term, 
       function(err, docs){
-        if(err) return cb(err);
+        if(err) return cb(errHandler.database.error(err));
         return cb(docs);
       });
     }
@@ -33,10 +34,10 @@ module.exports = function(dbName){
   this.findOne = function(id, cb){
     Models[dbName].findById(id,
       function(err, doc){
-        if(err) return cb(err);
+        if(err) return cb(errHandler.database.error(err));
         if(popOpt[dbName]){
           Models[dbName].populate(doc, popOpt[dbName], function(err,doc){
-            if(err) return cb(err);
+            if(err) return cb(errHandler.database.error(err));
             return cb(doc);
           });
         }
@@ -48,7 +49,7 @@ module.exports = function(dbName){
   this.addOne = function(data, cb){
     Models[dbName].create(data, 
       function(err,doc){
-        if(err) return cb(err);
+        if(err) return cb(errHandler.database.error(err));
         return cb(doc);
       });
   };
@@ -58,7 +59,7 @@ module.exports = function(dbName){
       , data
       , {'new' : true}
       , function(err, doc){
-          if(err) return cb(err);
+          if(err) return cb(errHandler.database.error(err));
           return cb(doc);
       });
   };
@@ -69,14 +70,14 @@ module.exports = function(dbName){
         , {active:false}
         , {'new':true}
         , function(err, doc){
-            if(err) return cb(err);
+            if(err) return cb(errHandler.database.error(err));
             return cb(doc);
         });
     }
     else{
       Models[dbName].findByIdAndRemove(id
         , function(err, doc){
-          if(err) return cb(err);
+          if(err) return cb(errHandler.database.error(err));
           return cb({"_id": doc._id, "deleted": true});
         }
       );
