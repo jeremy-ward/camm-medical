@@ -51,8 +51,12 @@ this.findOne = function(id, cb){
 this.addOne = function(data, cb){
   Models[dbName].create(data, 
     function(err,doc){
+<<<<<<< HEAD
       if(err){
         return cb(err)};
+=======
+      if(err) return cb(err);
+>>>>>>> cc9134531447ee5b3e8394a8abba48c311c8ac56
       return cb(doc);
     });
 };
