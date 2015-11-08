@@ -29,7 +29,7 @@ var express     = require('express'),
     //=== add a new one ==
     router.post("/", function(req, res){
       var cb= function(x){res.send(x)};
-      dbCtrl.addOne(req.body.updateData, cb);
+      dbCtrl.addOne(req.body.addNew, cb);
     });
 
 

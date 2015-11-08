@@ -3,7 +3,7 @@
 //===get required tools==========
 var mongoose   = require('mongoose'),
     Schema     = mongoose.Schema,
-    validators = require('./validation/validators');
+    validators = require('../validation/validators');
 
 //===set up schema for orders========
 var orderSchema = new Schema({
@@ -28,7 +28,7 @@ var orderSchema = new Schema({
 });
 
 //=== add custom methods for customer schema
-  require('./methods/model-methods.js')(orderSchema);
+  require('../methods/model-methods.js')(orderSchema);
 
 //==export client model
 module.exports=mongoose.model("Orders", orderSchema);

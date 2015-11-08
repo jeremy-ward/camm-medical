@@ -1,10 +1,9 @@
-//=== model for supplier data =============================
+//=== model for customer data =============================
 
 //===get the needed tools
 var mongoose   = require('mongoose'),
     Schema     = mongoose.Schema,
-    validators = require('./validation/validators.js');
-
+    validators = require('../validation/validators');
 
 //=== set up the contact schema
 var contactSchema = new Schema({
@@ -19,8 +18,8 @@ var contactSchema = new Schema({
   primary: Boolean
 });
 
-//===Set up the supplier schema
-var supplierSchema = new Schema({
+//===Set up the customer schema
+var customerSchema = new Schema({
   active: Boolean,
   company: String,
   type: String,
@@ -47,8 +46,8 @@ var supplierSchema = new Schema({
   contacts: [contactSchema]
 });
 
-//=== add custom methods for supplier schema
-  require('./methods/model-methods.js')(supplierSchema);
+//=== add custom methods for customer schema
+  require('../methods/model-methods.js')(customerSchema);
 
 //==export client model
-module.exports=mongoose.model("Supplier", supplierSchema);
+module.exports=mongoose.model("Customer", customerSchema);
