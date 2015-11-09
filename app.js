@@ -18,15 +18,15 @@ var express = require('express'),
 //connect to the database
 mongoose.connect(database.url);
 // CONNECTION EVENTS
-// When successfully connected
-mongoose.connection.on('connected', function () {  
-  console.log('DB connected: ' + database.url);
-}); 
+  // When successfully connected
+  mongoose.connection.on('connected', function () {  
+    console.log('DB connected: ' + database.url);
+  }); 
 
-// If the connection throws an error
-mongoose.connection.on('error',function (err) {  
-  console.log('DB error: ' + err);
-}); 
+  // If the connection throws an error
+  mongoose.connection.on('error',function (err) {  
+    console.log('DB error: ' + err);
+  }); 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

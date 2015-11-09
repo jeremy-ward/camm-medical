@@ -1,5 +1,5 @@
-var validators = require('../server/models/validation/validators'),
-    tests      = require('./tests/db-tests');
+var validators = require('../server/database/validation/validators'),
+    tests      = require('./tests/validators-test');
 
 var validatorTest = function(test){
   tests[test].forEach(function(item){
